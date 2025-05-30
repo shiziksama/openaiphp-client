@@ -9,7 +9,7 @@ use OpenAI\Responses\Concerns\ArrayAccessible;
 use OpenAI\Responses\Meta\MetaInformation;
 
 /**
- * @phpstan-type ImageGenerationCallType array{id: string, prompt: string, status: string, type: 'image_generation_call', url?: string, b64_json?: string, revised_prompt?: string}
+ * @phpstan-type ImageGenerationCallType array{id: string, prompt: string, status: string, type: 'image_generation_call', url?: string, b64_json?: string, revised_prompt?: string, result?: string}
  *
  * @implements ResponseContract<ImageGenerationCallType>
  */
@@ -28,8 +28,10 @@ final class ImageGenerationCall implements ResponseContract
         public readonly ?string $url = null,
         public readonly ?string $b64_json = null,
         public readonly ?string $revisedPrompt = null,
+        public readonly ?string $result = null,
         private readonly ?MetaInformation $meta = null,
-    ) {}
+    ) {
+    }
 
     /**
      * @param ImageGenerationCallType $attributes
@@ -37,13 +39,14 @@ final class ImageGenerationCall implements ResponseContract
     public static function from(array $attributes, ?MetaInformation $meta = null): self
     {
         return new self(
-            id: $attributes['id'],
+            id: $attributes['item_id'],
             prompt: $attributes['prompt'] ?? '',
             status: $attributes['status'] ?? '',
             type: $attributes['type'] ?? '',
             url: $attributes['url'] ?? null,
             b64_json: $attributes['b64_json'] ?? null,
             revisedPrompt: $attributes['revised_prompt'] ?? null,
+            result: $attributes['result'] ?? null,
             meta: $meta,
         );
     }
@@ -64,6 +67,9 @@ final class ImageGenerationCall implements ResponseContract
         }
         if ($this->revisedPrompt !== null) {
             $data['revised_prompt'] = $this->revisedPrompt;
+        }
+        if ($this->result !== null) {
+            $data['result'] = $this->result;
         }
         return $data;
     }

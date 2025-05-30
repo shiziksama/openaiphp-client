@@ -9,7 +9,7 @@ use OpenAI\Responses\Concerns\ArrayAccessible;
 use OpenAI\Testing\Responses\Concerns\Fakeable;
 
 /**
- * @phpstan-type OutputImageGenerationToolCallType array{id: string, prompt: string, status: string, type: 'image_generation_call', url?: string, b64_json?: string, revised_prompt?: string}
+ * @phpstan-type OutputImageGenerationToolCallType array{id: string, prompt: string, status: string, type: 'image_generation_call', url?: string, b64_json?: string, revised_prompt?: string, result?: string}
  *
  * @implements ResponseContract<OutputImageGenerationToolCallType>
  */
@@ -30,7 +30,9 @@ final class OutputImageGenerationToolCall implements ResponseContract
         public readonly ?string $url = null,
         public readonly ?string $b64_json = null,
         public readonly ?string $revisedPrompt = null,
-    ) {}
+        public readonly ?string $result = null,
+    ) {
+    }
 
     /**
      * @param OutputImageGenerationToolCallType $attributes
@@ -39,12 +41,13 @@ final class OutputImageGenerationToolCall implements ResponseContract
     {
         return new self(
             id: $attributes['id'],
-            prompt: $attributes['prompt']??'',
-            status: $attributes['status']??'',
-            type: $attributes['type']??'',
+            prompt: $attributes['prompt'] ?? '',
+            status: $attributes['status'] ?? '',
+            type: $attributes['type'] ?? '',
             url: $attributes['url'] ?? null,
             b64_json: $attributes['b64_json'] ?? null,
             revisedPrompt: $attributes['revised_prompt'] ?? null,
+            result: $attributes['result'] ?? null,
         );
     }
 
@@ -55,9 +58,9 @@ final class OutputImageGenerationToolCall implements ResponseContract
     {
         $data = [
             'id' => $this->id,
-            'prompt' => $this->prompt??'',
-            'status' => $this->status??'',
-            'type' => $this->type??'',
+            'prompt' => $this->prompt ?? '',
+            'status' => $this->status ?? '',
+            'type' => $this->type ?? '',
         ];
         if ($this->url !== null) {
             $data['url'] = $this->url;
@@ -67,6 +70,9 @@ final class OutputImageGenerationToolCall implements ResponseContract
         }
         if ($this->revisedPrompt !== null) {
             $data['revised_prompt'] = $this->revisedPrompt;
+        }
+        if ($this->result !== null) {
+            $data['result'] = $this->result;
         }
         return $data;
     }

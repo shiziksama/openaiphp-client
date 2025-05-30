@@ -22,6 +22,7 @@ use OpenAI\Responses\Responses\Streaming\ReasoningSummaryTextDone;
 use OpenAI\Responses\Responses\Streaming\RefusalDelta;
 use OpenAI\Responses\Responses\Streaming\RefusalDone;
 use OpenAI\Responses\Responses\Streaming\WebSearchCall;
+use OpenAI\Responses\Responses\Streaming\ImageGenerationCall;
 use OpenAI\Testing\Responses\Concerns\FakeableForStreamedResponse;
 
 /**
@@ -40,8 +41,9 @@ final class CreateStreamedResponse implements ResponseContract
 
     private function __construct(
         public readonly string $event,
-        public readonly CreateResponse|OutputItem|ContentPart|OutputTextDelta|OutputTextAnnotationAdded|OutputTextDone|RefusalDelta|RefusalDone|FunctionCallArgumentsDelta|FunctionCallArgumentsDone|FileSearchCall|WebSearchCall|ReasoningSummaryPart|ReasoningSummaryTextDelta|ReasoningSummaryTextDone|Error $response,
-    ) {}
+        public readonly CreateResponse|OutputItem|ContentPart|OutputTextDelta|OutputTextAnnotationAdded|OutputTextDone|RefusalDelta|RefusalDone|FunctionCallArgumentsDelta|FunctionCallArgumentsDone|FileSearchCall|WebSearchCall|ReasoningSummaryPart|ReasoningSummaryTextDelta|ReasoningSummaryTextDone|ImageGenerationCall|Error $response,
+    ) {
+    }
 
     /**
      * @param  array<string, mixed>  $attributes
@@ -80,7 +82,8 @@ final class CreateStreamedResponse implements ResponseContract
             'response.reasoning_summary_text.delta' => ReasoningSummaryTextDelta::from($attributes, $meta), // @phpstan-ignore-line
             'response.reasoning_summary_text.done' => ReasoningSummaryTextDone::from($attributes, $meta), // @phpstan-ignore-line
             'response.image_generation_call.in_progress',
-            'response.image_generation_call.completed' => Streaming\ImageGenerationCall::from($attributes, $meta), // image_generation_call streaming support
+            'response.image_generation_call.generating',
+            'response.image_generation_call.completed' => ImageGenerationCall::from($attributes, $meta), // image_generation_call streaming support
             'error' => Error::from($attributes, $meta), // @phpstan-ignore-line
             default => throw new UnknownEventException('Unknown Responses streaming event: '.$event),
         };
