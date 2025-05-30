@@ -216,7 +216,7 @@ final class CreateResponse implements ResponseContract, ResponseHasMetaInformati
                 ? $this->toolChoice
                 : $this->toolChoice->toArray(),
             'tools' => array_map(
-                fn (ComputerUseTool|FileSearchTool|FunctionTool|WebSearchTool $tool): array => $tool->toArray(),
+                fn (ComputerUseTool|FileSearchTool|FunctionTool|WebSearchTool|ImageGenerationTool $tool): array => $tool->toArray(),
                 $this->tools
             ),
             'top_p' => $this->topP,
