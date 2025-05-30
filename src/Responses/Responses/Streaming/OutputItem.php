@@ -16,6 +16,7 @@ use OpenAI\Responses\Responses\Output\OutputMessage;
 use OpenAI\Responses\Responses\Output\OutputReasoning;
 use OpenAI\Responses\Responses\Output\OutputWebSearchToolCall;
 use OpenAI\Responses\Images\CreateResponseData;
+use OpenAI\Responses\Responses\Output\OutputImageGenerationToolCall;
 use OpenAI\Testing\Responses\Concerns\Fakeable;
 
 /**
