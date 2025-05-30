@@ -124,11 +124,12 @@ final class CreateResponse implements ResponseContract, ResponseHasMetaInformati
         : $attributes['tool_choice'];
 
         $tools = array_map(
-            fn (array $tool): ComputerUseTool|FileSearchTool|FunctionTool|WebSearchTool => match ($tool['type']) {
+            fn (array $tool): ComputerUseTool|FileSearchTool|FunctionTool|WebSearchTool|ImageGenerationTool => match ($tool['type']) {
                 'file_search' => FileSearchTool::from($tool),
                 'web_search_preview', 'web_search_preview_2025_03_11' => WebSearchTool::from($tool),
                 'function' => FunctionTool::from($tool),
                 'computer_use_preview' => ComputerUseTool::from($tool),
+                'image_generation' => ImageGenerationTool::from($tool), // Додаємо підтримку image_generation tool
             },
             $attributes['tools'],
         );
