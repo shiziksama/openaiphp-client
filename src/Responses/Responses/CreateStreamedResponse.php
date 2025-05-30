@@ -79,6 +79,8 @@ final class CreateStreamedResponse implements ResponseContract
             'response.reasoning_summary_part.done' => ReasoningSummaryPart::from($attributes, $meta), // @phpstan-ignore-line
             'response.reasoning_summary_text.delta' => ReasoningSummaryTextDelta::from($attributes, $meta), // @phpstan-ignore-line
             'response.reasoning_summary_text.done' => ReasoningSummaryTextDone::from($attributes, $meta), // @phpstan-ignore-line
+            'response.image_generation_call.in_progress',
+            'response.image_generation_call.completed' => OutputItem::from($attributes, $meta), // image_generation_call streaming support
             'error' => Error::from($attributes, $meta), // @phpstan-ignore-line
             default => throw new UnknownEventException('Unknown Responses streaming event: '.$event),
         };
