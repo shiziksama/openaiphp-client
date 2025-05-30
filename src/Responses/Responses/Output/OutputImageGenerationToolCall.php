@@ -39,9 +39,9 @@ final class OutputImageGenerationToolCall implements ResponseContract
     {
         return new self(
             id: $attributes['id'],
-            prompt: $attributes['prompt'],
-            status: $attributes['status'],
-            type: $attributes['type'],
+            prompt: $attributes['prompt']??'',
+            status: $attributes['status']??'',
+            type: $attributes['type']??'',
             url: $attributes['url'] ?? null,
             b64_json: $attributes['b64_json'] ?? null,
             revisedPrompt: $attributes['revised_prompt'] ?? null,
@@ -55,9 +55,9 @@ final class OutputImageGenerationToolCall implements ResponseContract
     {
         $data = [
             'id' => $this->id,
-            'prompt' => $this->prompt,
-            'status' => $this->status,
-            'type' => $this->type,
+            'prompt' => $this->prompt??'',
+            'status' => $this->status??'',
+            'type' => $this->type??'',
         ];
         if ($this->url !== null) {
             $data['url'] = $this->url;
