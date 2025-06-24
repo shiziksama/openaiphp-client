@@ -27,6 +27,8 @@ final class OutputMessageContentOutputTextAnnotationsContainerFile implements Re
      */
     private function __construct(
         public readonly string $fileId,
+        public readonly string $containerId,
+        
         public readonly string $type,
         public readonly ?string $text,
         public readonly ?int $startIndex,
@@ -40,6 +42,7 @@ final class OutputMessageContentOutputTextAnnotationsContainerFile implements Re
     {
         return new self(
             fileId: $attributes['file_id'],
+            containerId: $attributes['container_id'],
             type: $attributes['type'],
             text: $attributes['text'] ?? null,
             startIndex: $attributes['start_index'] ?? null,
@@ -54,6 +57,7 @@ final class OutputMessageContentOutputTextAnnotationsContainerFile implements Re
     {
         $result = [
             'file_id' => $this->fileId,
+            'container_id' => $this->containerId,
             'type' => $this->type,
         ];
 
